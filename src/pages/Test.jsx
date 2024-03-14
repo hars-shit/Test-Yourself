@@ -71,7 +71,7 @@ const Test = () => {
   return (
     <div>
       <section className="search-section">
-        <p>What topic do you want to ask about?</p>
+        <p className="text-black">What topic do you want to ask about?</p>
         <div className="input-container">
           <label htmlFor="email">Enter Email id</label>
           <br />
@@ -100,7 +100,7 @@ const Test = () => {
          <div>
           length of the prompt is {prompt.length}
          </div>
-         }
+         } 
          <button onClick={handlePrompt} disabled={prompt.length !== 10}> 
             Let's go...
          </button>
