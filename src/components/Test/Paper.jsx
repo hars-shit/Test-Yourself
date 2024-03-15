@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import Result from "./Result";
 
 const Paper = () => {
   const data = useSelector(state => state.currentuser);
@@ -16,7 +17,7 @@ const Paper = () => {
           return prevDuration - 1;
         }
       });
-    }, 1000);
+    }, 100000);
 
     return () => clearInterval(timer); // Cleanup function
   }, [index]); 
@@ -49,7 +50,7 @@ const Paper = () => {
             </form>
           </div>
         ) : (
-          <p>Exam Finished</p>
+          <Result />
         )}
       </div>
     </div>
