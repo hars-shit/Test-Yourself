@@ -8,17 +8,38 @@ import { Alert, Backdrop, Snackbar } from "@mui/material";
 
 const Test = () => {
   const [topic, setTopic] = useState("");
+  const [email,setEmail]=useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [prompt, setPrompt] = useState([]);
   const navigate = useNavigate();
   const dispatch=useDispatch()
+  
   const handlePrompt = () => {
+    // for posting user data 
+    const sendData=async()=>{
+      if(!email || !topic){
+        return;
+      }
+      try{
+
+        let response=await axios.post('http://localhost:2001/user',{
+          email:email,
+          topic:topic
+        })
+        console.log("res",response)
+      }
+      catch(Error){
+        console.log("error",Error)
+      }
+    }
+    sendData()
       dispatch(addPaper(prompt))
       navigate('/paper');
     
     
   }
+
   
   const [open, setOpen] = useState(false);
 
@@ -94,7 +115,7 @@ const Test = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
   <div className="space-y-2 order-first">
     <label htmlFor="email" className="text-lg">Email</label>
-    <input id="email" className="w-full py-2 px-4 border rounded-lg" type="email" placeholder="Enter Your email"/>
+    <input id="email" className="w-full py-2 px-4 border rounded-lg" type="email" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="Enter Your email"/>
   </div>
   <div className="space-y-2  md:order-none">
     <label htmlFor="topic" className="text-lg">Enter your Topic</label>

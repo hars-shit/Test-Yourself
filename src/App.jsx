@@ -3,6 +3,7 @@ import Test from "./pages/Test"
 import Lobby from "./components/Interview/Lobby"
 import Room from "./components/Interview/Room"
 import Paper from "./components/Test/Paper"
+import Result from "./components/Test/Result"
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
       <Route path="/room/:roomId" element={<Room/>}/>
       <Route path="/test" element={<Test />}/>
       <Route path="/paper" element={<Paper/>}/>
+      <Route path="/res" element={<Result/>}/>
     </Routes>
     </>
   )
