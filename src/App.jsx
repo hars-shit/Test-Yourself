@@ -9,8 +9,11 @@ const App = () => {
   return (
     <>
     <Routes>
+      {/* for interview  */}
       <Route path="/" element={<Lobby/>}/>
       <Route path="/room/:roomId" element={<Room/>}/>
+
+      {/* for mcq test  */}
       <Route path="/test" element={<Test />}/>
       <Route path="/paper" element={<Paper/>}/>
       <Route path="/res" element={<Result/>}/>

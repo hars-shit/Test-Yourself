@@ -1,18 +1,63 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Result from "./Result";
 import { Card } from "@mui/material";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Paper = () => {
-  const data = useSelector((state) => state.currentuser);
+  const data = useSelector((state) => state.currentuser.arr);
+  const id= useSelector((state) => state.currentuser.id);
+  // console.log("data rr",data)
   const [index, setIndex] = useState(0);
   const [timerDuration, setTimerDuration] = useState(20);
+  const [optionIndex,SetOptionIndex]=useState(null)
+  const [selectedOptionIndex, setSelectedOptionIndex] = useState(null);
+  const navigate=useNavigate();
 
   useEffect(() => {
+
     const timer = setInterval(() => {
+      
       setTimerDuration((prevDuration) => {
         if (prevDuration === 1) {
-          setIndex((prevIndex) => prevIndex + 1);
+            if(index===data.length-1){
+                navigate('/res')
+            }
+            setIndex((prevIndex) => prevIndex + 1);
+         
+          
+
+          
+          const setData=async()=>{
+            // const isCorrect=selectedOption===currentQuestion 
+            try{
+                
+                  let currentQuestion = data[index].question;
+                  // console.log("Current Question:", currentQuestion);
+                  console.log("hii")
+                  let correct = data[index].options[data[index].correct_answer];
+                  // console.log("Selected Option:", correct);
+                  
+                  // 1 represent true and 0 false 
+                  let is_correct=data[index].correct_answer === optionIndex ? 1:0;
+                  // console.log("is correct",is_correct)
+                
+                const response=await axios.put(`http://localhost:2001/user/questions/${id}`,
+                {
+                  question:currentQuestion,
+                  correct:correct,
+                  is_correct:is_correct
+                }
+                );
+                // console.log("response",response)
+              }
+              catch(err){
+                console.log(err)
+              }
+          }
+          
+          setSelectedOptionIndex(null); // Reset selected option index
+          setData()
           return 20;
         } else {
           return prevDuration - 1;
@@ -21,11 +66,16 @@ const Paper = () => {
     }, 1000); // Fixed timer duration to 1000ms
 
     return () => clearInterval(timer); // Cleanup function
-  }, [index]);
+  }, [data, id, index, navigate, optionIndex, selectedOptionIndex]);
 
-  const handleOptionChange = (e) => {
-    console.log("Selected option:", e.target.value);
+  const handleOptionChange = (e,optionIndex) => {
+    setSelectedOptionIndex(parseInt(e.target.value)); // Set selected option index
+    // console.log("Selected option:", optionIndex);
+    SetOptionIndex(optionIndex)
   };
+ 
+
+
 
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
@@ -38,7 +88,7 @@ const Paper = () => {
             Please select the correct answer for each question
           </p>
         </div>
-        {index < data.length ? (
+        {index < data.length && (
           <div>
             <div className="flex flex-col md:flex-row justify-between items-center mb-6 md:mb-10">
               <p className="bg-gray-200 text-black rounded-lg px-2 md:px-4 py-1 md:py-2 mb-4 md:mb-2 text-xs md:text-sm">
@@ -58,8 +108,9 @@ const Paper = () => {
                     type="radio"
                     id={`option-${optionIndex}`}
                     name={`option-${index}`}
-                    value={option}
-                    onChange={handleOptionChange}
+                    value={optionIndex}
+                    checked={selectedOptionIndex === optionIndex}
+                    onChange={(e)=>handleOptionChange(e,optionIndex)}
                     className="form-radio h-4 w-4 md:h-5 md:w-5 text-blue-600"
                   />
                   <label
@@ -72,9 +123,7 @@ const Paper = () => {
               ))}
             </form>
           </div>
-        ) : (
-          <Result />
-        )}
+        ) }
         <div className="flex justify-between mt-5 md:mt-8">
           <button className="px-4 md:px-6 py-2 md:py-3 bg-slate-400 text-white rounded-lg">
             Back
