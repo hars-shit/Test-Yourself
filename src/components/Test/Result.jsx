@@ -7,31 +7,40 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const Result = () => {
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   const id = useSelector((state) => state.currentuser.id);
   const [topic, setTopic] = useState("");
   const [email, setEmail] = useState("");
   const [correct, setCorrect] = useState(null);
   const [item, setItem] = useState([]);
 
+  const user = useSelector((state)=>state.currentuser)
+
+  console.log("currentuser is this ",user)
+
+  console.log("id is ",id)
+
+
   useEffect(() => {
     const getData = async () => {
       try {
         let response = await axios.get(
-          `http://localhost:2001/user/questions/get/${id}`
+          `http://localhost:2001/user/${id}`
         );
+        console.log("response is ", response)
         let correct = 0;
         for (let i = 0; i < response?.data?.data?.questions.length; i++) {
           if (response?.data?.data?.questions[i].is_correct === 1) {
             correct = correct + 1;
           }
         }
-        setItem(response?.data?.data?.questions);
+        setItem(response?.data?.questions);
         setCorrect(correct);
 
         // console.log("response aa", response.data.data.questions);
-        setTopic(response?.data?.data?.topic);
-        setEmail(response?.data?.data?.email);
+        setTopic(response?.data?.topic);
+        // console.log("response is ",response?.data)
+        setEmail(response?.data?.email);
       } catch (err) {
         console.log(err);
       }
@@ -39,25 +48,23 @@ const Result = () => {
     getData();
   }, [id]);
 
-//   for pre data fetched by email id 
-  useEffect(()=>{
-    const getByEmail=async()=>{
-      console.log("Email",email)
-        try{
+  console.log("email is ", email)
 
-            const response=await axios.get('http://localhost:2001/user/questions/get',{
-              params:{
-                email:email,
-              },
-            });
-            console.log("response ss",response)
-        }
-        catch(Err){
-            console.log(Err)
-        }
+  //   for pre data fetched by email id 
+  useEffect(() => {
+    const getByEmail = async () => {
+      try {
+        const response = await axios.get(`http://localhost:2001/user/questions/get/${email}`
+        );
+        console.log("new response is the", response)
+      }
+      catch (Err) {
+        console.log(Err)
+      }
     }
     getByEmail()
-  },[email])
+  }, [email])
+
   return (
     <div className="flex flex-col justify-center bg-gray-100  p-8">
       <div className="flex flex-col md:flex-row md:justify-between items-center gap-4 mb-8">
@@ -66,7 +73,7 @@ const Result = () => {
           <p className="text-gray-600 mb-2">Your Current Test Results</p>
         </div>
         <div className="flex justify-center md:justify-start">
-          <button className="px-10 md:px-6 py-2 md:py-3 bg-black text-white rounded-lg" onClick={()=>navigate('/test')}>
+          <button className="px-10 md:px-6 py-2 md:py-3 bg-black text-white rounded-lg" onClick={() => navigate('/test')}>
             Take Exam
           </button>
         </div>
@@ -78,9 +85,9 @@ const Result = () => {
           <p className=" font-semibold mb-3">Current Topic : {topic}</p>
           <p className=" font-semibold mb-6">User Id : {email}</p>
           <div className="grid grid-cols-3 gap-4 mb-10 font-medium ">
-            <p>Total Questions: {item.length}</p>
+            <p>Total Questions: {item?.length}</p>
             <p>Correct Answers: {correct}</p>
-            <p>Incorrect Answers: {item.length - correct}</p>
+            <p>Incorrect Answers: {item?.length - correct}</p>
           </div>
         </div>
         <div>
@@ -93,31 +100,31 @@ const Result = () => {
         <div className="tex-lg md:text-xl">
           <p className="font-medium mb-3">All Questions and Correct Answers</p>
           {
-            item?.map((e,i)=>{
-                return(
-          <div key={i} className="mb-5">
+            item?.map((e, i) => {
+              return (
+                <div key={i} className="mb-5">
 
-          <p >
-            <span className="font-medium">Question {i+1} -</span> {e.question}{" "}
-            <Chip
-              label={e.is_correct ===0 ? "Incorrect" : "Correct"}
-              style={{
-                  backgroundColor:e.is_correct===0 ?  "rgb(217 199 187)" : "rgb(224 202 122)",
-                  color: e.is_correct===0 ? "black" :"white",
-                  fontWeight: "500",
-                }}
-                variant="outlined"
-                />
-          </p>
-          <p className="text-justify tracking-wide ">
-            <span className="font-medium">Answer {i+1}-</span> {e.correct}
-          </p>
-        </div>
-        
-    )
-})
-}
+                  <p >
+                    <span className="font-medium">Question {i + 1} -</span> {e.question}{" "}
+                    <Chip
+                      label={e.is_correct === 0 ? "Incorrect" : "Correct"}
+                      style={{
+                        backgroundColor: e.is_correct === 0 ? "rgb(217 199 187)" : "rgb(224 202 122)",
+                        color: e.is_correct === 0 ? "black" : "white",
+                        fontWeight: "500",
+                      }}
+                      variant="outlined"
+                    />
+                  </p>
+                  <p className="text-justify tracking-wide ">
+                    <span className="font-medium">Answer {i + 1}-</span> {e.correct}
+                  </p>
                 </div>
+
+              )
+            })
+          }
+        </div>
         <div className=" text-xl font-medium mb-3 mt-10 flex">
           <p>Total Exams : </p>
           <p> 10</p>

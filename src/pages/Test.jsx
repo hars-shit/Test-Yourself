@@ -18,12 +18,12 @@ const Test = () => {
   const navigate = useNavigate();
   const dispatch=useDispatch()
 
-  useEffect(() => {
-    if (prompt.id) {
-      dispatch(addPaper(prompt));
-      navigate('/paper');
-    }
-  }, [prompt.id, dispatch, navigate, prompt]);
+  // useEffect(() => {
+  //   if (prompt.id) {
+  //     // dispatch(addPaper(prompt));
+  //     navigate('/paper');
+  //   }
+  // }, [prompt.id, dispatch, navigate, prompt]);
 
   const handlePrompt = () => {
     const sendData = async () => {
@@ -33,10 +33,15 @@ const Test = () => {
           topic: topic
         });
         console.log("res id ", response.data._id);
-        setPrompt(prevPrompt => ({
-          ...prevPrompt,
-          id: response.data._id // Update only the id
-        }));
+
+        dispatch(addPaper({...prompt, id: response.data._id}))
+        response.data._id && navigate('/paper')
+
+        // setPrompt(prevPrompt => ({
+        //   ...prevPrompt,
+        //   id: response.data._id // Update only the id
+        // }));
+
       } catch (Error) {
         console.log("error", Error);
       }
