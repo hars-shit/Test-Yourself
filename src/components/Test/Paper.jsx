@@ -5,11 +5,11 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Paper = () => {
-  const data = useSelector((state) => state.currentuser.arr);
-  const id= useSelector((state) => state.currentuser.id);
+  const data = useSelector((state) => state.paperSlice.currentuser.arr);
+  const id= useSelector((state) => state.paperSlice.currentuser.id);
   // console.log("data rr",data)
   const [index, setIndex] = useState(0);
-  const [timerDuration, setTimerDuration] = useState(20);
+  const [timerDuration, setTimerDuration] = useState(30);
   const [optionIndex,SetOptionIndex]=useState(null)
   const [selectedOptionIndex, setSelectedOptionIndex] = useState(null);
   const navigate=useNavigate();
@@ -34,7 +34,7 @@ const Paper = () => {
                 
                   let currentQuestion = data[index].question;
                   // console.log("Current Question:", currentQuestion);
-                  console.log("hii")
+               
                   let correct = data[index].options[data[index].correct_answer];
                   // console.log("Selected Option:", correct);
                   
@@ -58,7 +58,7 @@ const Paper = () => {
           
           setSelectedOptionIndex(null); // Reset selected option index
           setData()
-          return 20;
+          return 30;
         } else {
           return prevDuration - 1;
         }
@@ -79,7 +79,7 @@ const Paper = () => {
 
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
-      <Card className="w-full md:w-[600px]  h-auto md:h-[80vh] bg-white p-4 md:p-8  shadow-lg rounded-lg flex flex-col justify-between">
+      <Card className="w-full md:w-[600px]  h-auto md:h-[80vh] bg-white p-4 md:p-8  rounded-lg flex flex-col justify-between">
         <div>
           <h1 className="text-xl md:text-3xl font-bold text-center mb-2 md:mb-4">
             Basics Quiz

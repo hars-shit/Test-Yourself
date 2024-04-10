@@ -8,17 +8,18 @@ import { useNavigate } from "react-router-dom";
 
 const Result = () => {
   const navigate = useNavigate()
-  const id = useSelector((state) => state.currentuser.id);
+  const id = useSelector((state) => state.paperSlice.currentuser.id);
   const [topic, setTopic] = useState("");
   const [email, setEmail] = useState("");
   const [correct, setCorrect] = useState(null);
   const [item, setItem] = useState([]);
 
-  const user = useSelector((state)=>state.currentuser)
+  const [pre_data,setPre_data]=useState([])
+  const [pre_length,setPre_length]=useState(null)
+  const[pre_correct,setPre_correct]=useState(null)
 
-  console.log("currentuser is this ",user)
+  // const user = useSelector((state)=>state.currentuser)
 
-  console.log("id is ",id)
 
 
   useEffect(() => {
@@ -27,10 +28,10 @@ const Result = () => {
         let response = await axios.get(
           `http://localhost:2001/user/${id}`
         );
-        console.log("response is ", response)
+        // console.log("response is ", response)
         let correct = 0;
-        for (let i = 0; i < response?.data?.data?.questions.length; i++) {
-          if (response?.data?.data?.questions[i].is_correct === 1) {
+        for (let i = 0; i < response?.data?.questions.length; i++) {
+          if (response?.data?.questions[i].is_correct === 1) {
             correct = correct + 1;
           }
         }
@@ -48,7 +49,6 @@ const Result = () => {
     getData();
   }, [id]);
 
-  console.log("email is ", email)
 
   //   for pre data fetched by email id 
   useEffect(() => {
@@ -56,7 +56,20 @@ const Result = () => {
       try {
         const response = await axios.get(`http://localhost:2001/user/questions/get/${email}`
         );
-        console.log("new response is the", response)
+        // console.log("new response is the", response.data)
+        setPre_data(response?.data)
+        setPre_length(response.data[response.data.length-2].questions.length)
+        let pre=response?.data[response.data.length-2].questions;
+        let correct=0;
+        for(let i=0;i<pre.length;i++){
+          if( response.data[response.data.length-2].questions[i].is_correct===1){
+          correct =correct + 1;
+          }
+        }
+        // console.log("corr",correct)
+        setPre_correct(correct)
+
+        // setPre_data(response.data[response.data.length-2])
       }
       catch (Err) {
         console.log(Err)
@@ -91,7 +104,7 @@ const Result = () => {
           </div>
         </div>
         <div>
-          <Chart />
+          <Chart item={item}/>
         </div>
       </div>
 
@@ -135,16 +148,16 @@ const Result = () => {
           <p className="mt-3 mb-3">Java Programming :</p>
 
           <div className="grid grid-cols-3 gap-4 mb-3">
-            <p>Total Questions: 10</p>
-            <p>Correct Answers: 5</p>
-            <p>Incorrect Answers: 5</p>
+            <p>Total Questions: {pre_length}</p>
+            <p>Correct Answers: {pre_correct}</p>
+            <p>Incorrect Answers: {pre_length-pre_correct}</p>
           </div>
         </div>
       </div>
 
       {/* Table */}
       <div>
-        <BasicTable />
+        <BasicTable pre_data={pre_data}/>
       </div>
     </div>
   );

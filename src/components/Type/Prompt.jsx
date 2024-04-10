@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState,  } from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addPaper } from "../redux/paperSlice";
-import { Alert, Backdrop, Snackbar } from "@mui/material";
 
-const Test = () => {
+import { Alert, Backdrop, Snackbar } from "@mui/material";
+import { addPaper } from "../../redux/paperSlice";
+
+const Prompt = () => {
   const [topic, setTopic] = useState("");
   const [email,setEmail]=useState("");
   const [error, setError] = useState("");
@@ -18,12 +19,6 @@ const Test = () => {
   const navigate = useNavigate();
   const dispatch=useDispatch()
 
-  // useEffect(() => {
-  //   if (prompt.id) {
-  //     // dispatch(addPaper(prompt));
-  //     navigate('/paper');
-  //   }
-  // }, [prompt.id, dispatch, navigate, prompt]);
 
   const handlePrompt = () => {
     const sendData = async () => {
@@ -35,9 +30,9 @@ const Test = () => {
         console.log("res id ", response.data._id);
 
         dispatch(addPaper({...prompt, id: response.data._id}))
-        response.data._id && navigate('/paper')
+        response.data._id && navigate('/NewPaper')
 
-      
+       
 
       } catch (Error) {
         console.log("error", Error);
@@ -63,23 +58,26 @@ const Test = () => {
     }
     try {
       setLoading(true);
-      const message = `Give me 10 random mcq questions on the topic ${topic} in json format without any extra text only json file. The first entity will be the question, then the correct answer index ,index will be start from 0, and then the 4 options which also include the correct answer 
+      const message = `Give me 10 random  questions on the topic ${topic} in json format without any extra text only json file. The first entity will be the question, then the answer ,then a empty entity for user_answer and then marks  
       example:
       [
         {
-          "question": "What is the capital of France?",
-          "correct_answer": "Paris",
-          "options": ["London", "Berlin", "Paris", "Rome"]
+          "question": "What is Javascript?",
+          "answer": "JavaScript, often abbreviated as JS, is a high-level, interpreted programming language that conforms to the ECMAScript specification. It is primarily used to add interactivity and dynamic behavior to web pages.",
+          "user_answer":" ",
+          marks: 0 ,
         },
         {
-          "question": "Which planet is known as the Red Planet?",
-          "correct_answer": "Mars",
-          "options": ["Venus", "Jupiter", "Mars", "Saturn"]
+            "question": "What is Javascript?",
+            "answer": "JavaScript, often abbreviated as JS, is a high-level, interpreted programming language that conforms to the ECMAScript specification. It is primarily used to add interactivity and dynamic behavior to web pages.",
+            "user_answer":" ",
+            marks: 0 ,
         },
         {
-          "question": "What is the chemical symbol for water?",
-          "correct_answer": "H2O",
-          "options": ["CO2", "H2O", "O2", "H2SO4"]
+            "question": "What is Javascript?",
+            "answer": "JavaScript, often abbreviated as JS, is a high-level, interpreted programming language that conforms to the ECMAScript specification. It is primarily used to add interactivity and dynamic behavior to web pages.",
+            "user_answer":" ",
+            marks: 0 ,
         }
       ]
       
@@ -90,6 +88,7 @@ const Test = () => {
         },
       };
       const response = await axios.post("http://localhost:8000/chat", { message }, options);
+      console.log("res type",response.data)
       setPrompt({ arr: response.data, id: '' });
       setOpen(true);
     } catch (err) {
@@ -168,4 +167,4 @@ const Test = () => {
   );
 };
 
-export default Test;
+export default Prompt;
