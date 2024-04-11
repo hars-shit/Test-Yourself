@@ -16,7 +16,7 @@ const Paper = () => {
   const id= useSelector((state) => state.paperSlice.currentuser.id);
   // console.log("data rr",data)
   const [index, setIndex] = useState(0);
-  const [timerDuration, setTimerDuration] = useState(300);
+  const [timerDuration, setTimerDuration] = useState(30);
   const [optionIndex,SetOptionIndex]=useState(null)
   const [selectedOptionIndex, setSelectedOptionIndex] = useState(null);
   const navigate=useNavigate();
@@ -65,7 +65,7 @@ const Paper = () => {
           
           setSelectedOptionIndex(null); // Reset selected option index
           setData()
-          return 300;
+          return 30;
         } else {
           return prevDuration - 1;
         }
