@@ -5,16 +5,16 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
   
-    // Function to handle form submission
+   
     const handleSubmit = (e) => {
-      e.preventDefault(); // Prevent default form submission
-      // Here, you can add your logic to handle the login process
+      e.preventDefault(); 
+
       console.log('Username:', username);
       console.log('Password:', password);
     };
   
     return (
-        <div className="flex justify-center items-center h-[70vh] w-full">
+        <div className="flex justify-center items-center h-screen w-full">
             <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-20 pt-6 pb-8 mb-4">
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">Username:</label>
@@ -39,10 +39,10 @@ const Login = () => {
                     />
                 </div>
                 <div className="flex items-center justify-between  flex-col">
-                    <button type="submit" className="bg-black  text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto">
+                    <button type="submit" className="bg-black  text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mb-3">
                         Login
                     </button>
-                    <p>Don't have an account? </p>
+                    <p>Don't have an account? <Link to='/register' className='text-blue-700'>Signup</Link> </p>
                 </div>
             </form>
         </div>

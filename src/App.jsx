@@ -10,19 +10,23 @@ import TypeResult from "./components/Type/TypeResult"
 import Login from "./pages/User/Login"
 import Signup from "./pages/User/Signup"
 import Profile from "./pages/User/Profile"
+import Home from "./pages/Home"
 
 const App = () => {
   return (
     <>
     <Routes>
-      {/* for interview  */}
-      {/* <Route path="/" element={<Lobby/>}/> */}
-      {/* <Route path="/room/:roomId" element={<Room/>}/> */}
 
       {/* for mcq test  */}
       <Route path="/" element={<Login />}/>
       <Route path="/register" element={<Signup />}/>
     <Route path="/profile" element={<Profile />}/>
+    <Route path="/home" element={<Home />}/>
+    
+      {/* for interview  */}
+
+      <Route path="/lobby" element={<Lobby/>}/>
+      <Route path="/room/:roomId" element={<Room/>}/>
 
       <Route path="/test" element={<Test />}/>
       <Route path="/paper" element={<Paper/>}/>

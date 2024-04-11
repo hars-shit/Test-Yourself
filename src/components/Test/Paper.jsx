@@ -3,13 +3,20 @@ import { useSelector } from "react-redux";
 import { Card } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+const num=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 const Paper = () => {
+  const [activeIndex, setActiveIndex] = useState(0); // State variable to keep track of the active number's index
+
+  const handleNumberClick = (index) => {
+    setActiveIndex(index); 
+  };
   const data = useSelector((state) => state.paperSlice.currentuser.arr);
   const id= useSelector((state) => state.paperSlice.currentuser.id);
   // console.log("data rr",data)
   const [index, setIndex] = useState(0);
-  const [timerDuration, setTimerDuration] = useState(30);
+  const [timerDuration, setTimerDuration] = useState(300);
   const [optionIndex,SetOptionIndex]=useState(null)
   const [selectedOptionIndex, setSelectedOptionIndex] = useState(null);
   const navigate=useNavigate();
@@ -58,12 +65,12 @@ const Paper = () => {
           
           setSelectedOptionIndex(null); // Reset selected option index
           setData()
-          return 30;
+          return 300;
         } else {
           return prevDuration - 1;
         }
       });
-    }, 1000); // Fixed timer duration to 1000ms
+    }, 100000); // Fixed timer duration to 1000ms
 
     return () => clearInterval(timer); // Cleanup function
   }, [data, id, index, navigate, optionIndex, selectedOptionIndex]);
@@ -78,8 +85,10 @@ const Paper = () => {
 
 
   return (
-    <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
-      <Card className="w-full md:w-[600px]  h-auto md:h-[80vh] bg-white p-4 md:p-8  rounded-lg flex flex-col justify-between">
+    <div className="bg-gray-100 min-h-screen flex flex-col md:flex-row   items-center justify-center">
+    {/* First Part (Card) */}
+    <div className="w-full   ">
+      <Card className="md:h-[100vh]  bg-white p-4 md:p-8 rounded-lg flex flex-col justify-between mb-8">
         <div>
           <h1 className="text-xl md:text-3xl font-bold text-center mb-2 md:mb-4">
             Basics Quiz
@@ -123,8 +132,8 @@ const Paper = () => {
               ))}
             </form>
           </div>
-        ) }
-        <div className="flex justify-between mt-5 md:mt-8">
+        )}
+        <div className="flex justify-between px-4 mt-5 md:mt-8">
           <button className="px-4 md:px-6 py-2 md:py-3 bg-slate-400 text-white rounded-lg">
             Back
           </button>
@@ -134,6 +143,40 @@ const Paper = () => {
         </div>
       </Card>
     </div>
+    
+    <div className="w-full md:w-1/2  flex justify-center items-center ">
+  <div className="grid grid-cols-4 rounded-md p-4 bg-gray-200 w-full">
+    <div className="col-span-4">
+      <div className="flex  justify-between item-center ">
+        <KeyboardArrowLeftIcon style={{ fontSize: '50px' }} />
+        <KeyboardArrowRightIcon style={{ fontSize: '50px' }} />
+      </div>
+    </div>
+    {num.map((number, index) => (
+      <div
+        key={index}
+        className={`text-center m-[0.5rem] h-10 w-10 flex justify-center items-center ${index === activeIndex ? 'border border-gray-400' : ''}`}
+
+            style={{ borderRadius: '100%' }} 
+        onClick={() => handleNumberClick(index)}
+      >
+        {number}
+      </div>
+    ))}
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+  </div>
+  
   );
 };
 
