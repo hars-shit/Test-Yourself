@@ -12,6 +12,7 @@ import Signup from "./pages/User/Signup"
 import Profile from "./pages/User/Profile"
 import Home from "./pages/Home"
 import Friend from "./components/Friend/Friend"
+import Subscription from "./pages/Subscription/Subscription"
 
 const App = () => {
   return (
@@ -29,6 +30,9 @@ const App = () => {
       <Route path="/lobby" element={<Lobby/>}/>
       <Route path="/room/:roomId" element={<Room/>}/>
       <Route path="/friend" element={<Friend />}/>
+
+      {/* subscription  */}
+      <Route path="/pay" element={<Subscription />}/>
 
       <Route path="/test" element={<Test />}/>
       <Route path="/paper" element={<Paper/>}/>
