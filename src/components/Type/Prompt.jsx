@@ -20,10 +20,11 @@ const Prompt = () => {
   const dispatch=useDispatch()
 
 
+
   const handlePrompt = () => {
     const sendData = async () => {
       try {
-        let response = await axios.post('http://localhost:2001/user/questions', {
+        let response = await axios.post('http://localhost:2001/user/type', {
           email: email,
           topic: topic
         });
@@ -58,7 +59,7 @@ const Prompt = () => {
     }
     try {
       setLoading(true);
-      const message = `Give me 10 random  questions on the topic ${topic} in json format without any extra text only json file. The first entity will be the question, then the answer ,then a empty entity for user_answer and then marks  
+      const message = `Give me 10 random mix questions included numericals , problems , hard , easy and medium  on the topic ${topic} in json format without any extra text only json file. The first entity will be the question, then the answer ,then a empty entity for user_answer and then marks  
       example:
       [
         {

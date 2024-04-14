@@ -63,7 +63,7 @@ const Test = () => {
     }
     try {
       setLoading(true);
-      const message = `Give me 10 random mcq questions on the topic ${topic} in json format without any extra text only json file. The first entity will be the question, then the correct answer index ,index will be start from 0, and then the 4 options which also include the correct answer 
+      const message = `Give me 10 random mcq questions hard ,medium and easy on the topic ${topic} in json format without any extra text only json file. The first entity will be the question, then the correct answer index ,index will be start from 0, and then the 4 options which also include the correct answer 
       example:
       [
         {

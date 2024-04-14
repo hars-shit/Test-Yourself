@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import{ useState } from 'react';
 import { Link } from 'react-router-dom';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const Signup = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -14,55 +16,48 @@ const Signup = () => {
     };
 
     return (
-        <div className="flex justify-center items-center h-screen w-full">
-            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full md:w-[40vw]">
-                <h2 className="text-3xl text-center mb-4 font-bold text-gray-800">Sign Up</h2>
-                <div className="mb-4">
-                    <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2">Username:</label>
-                    <input
-                        type="text"
-                        id="username"
-                        placeholder="Enter your username"
-                        className="appearance-none  border border-gray-300 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline shadow-md w-full"
-                    />
+        <div className="flex justify-center items-center h-screen">
+            <form className="bg-white shadow-md rounded-lg px-8 py-6 w-full max-w-md">
+                <h2 className="text-3xl text-center mb-6 font-bold text-gray-800">Sign Up</h2>
+                <div className="mb-5">
+                    <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2">Username</label>
+                    <input type="text" className="w-full border border-gray-300 px-4 py-3 rounded-full focus:outline-none focus:border-purple-500" placeholder="Username"/>
                 </div>
-                <div className="mb-4">
-                    <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+                <div className="mb-5">
+                    <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email</label>
                     <input
                         type="email"
                         id="email"
                         placeholder="Enter your email"
-                        className="appearance-none  border border-gray-300 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline shadow-md w-full"
+                        className="w-full border border-gray-300 px-4 py-3 rounded-full focus:outline-none focus:border-purple-500"
                     />
                 </div>
-                <div className="mb-4 relative">
-                    <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">Password:</label>
+                <div className="mb-5 relative">
+                    <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">Password</label>
                     <input
                         type={showPassword ? "text" : "password"}
                         id="password"
                         placeholder="Enter your password"
-                        className="input appearance-none  border border-gray-300 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline shadow-md w-full"
+                        className="w-full border border-gray-300 px-4 py-3 rounded-full focus:outline-none focus:border-purple-500 "
                     />
-                    <span className="toggle-password absolute inset-y-0 right-0 pr-3 flex items-center mt-6 cursor-pointer" onClick={togglePasswordVisibility}>
-                        {showPassword ? "Hide" : "Show"}
+                    <span className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer mt-5" onClick={togglePasswordVisibility}>
+                        {showPassword ? <VisibilityOffIcon/> : <VisibilityIcon/>}
                     </span>
                 </div>
-                <div className="mb-7 relative">
-                    <label htmlFor="confirmPassword" className="block text-sm font-bold mb-2">Confirm Password:</label>
+                <div className="mb-10 relative ">
+                    <label htmlFor="confirmPassword" className="block text-gray-700 text-sm font-bold mb-2">Confirm Password</label>
                     <input
                         type={showConfirmPassword ? "text" : "password"}
                         id="confirmPassword"
                         placeholder="Confirm your password"
-                        className="appearance-none  border border-gray-300 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline shadow-md w-full"
+                        className="w-full border border-gray-300 px-4 py-3 rounded-full focus:outline-none focus:border-purple-500 relative"
                     />
-                    <span className="toggle-password absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer mt-6" onClick={toggleConfirmPasswordVisibility}>
-                        {showConfirmPassword ? "Hide" : "Show"}
+                    <span className="absolute inset-y-0 right-0 pr-3 flex items-center justify-center cursor-pointer mt-5" onClick={toggleConfirmPasswordVisibility}>
+                        {showConfirmPassword ? <VisibilityOffIcon/> : <VisibilityIcon/>}
                     </span>
                 </div>
                 <div className="flex justify-center">
-                    <button type="submit" className="bg-black text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mb-4">
-                        Sign Up
-                    </button>
+                    <button type="submit" className="bg-purple-600 hover:bg-purple-700 text-white rounded-full font-bold py-3 px-6 w-full focus:outline-none">Sign Up</button>
                 </div>
                 <p className="text-center mt-4 text-gray-700">Already have an account? <Link to="/" className="text-blue-700">Login</Link></p>
             </form>

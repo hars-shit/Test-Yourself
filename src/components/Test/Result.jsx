@@ -5,6 +5,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import QuizIcon from '@mui/icons-material/Quiz';
+import PersonIcon from '@mui/icons-material/Person';
+import AdsClickIcon from '@mui/icons-material/AdsClick';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+// import ChartBar from "./ChartBar";
+// import Chart2 from "./Chart2";
+
 
 const Result = () => {
   const navigate = useNavigate()
@@ -13,7 +20,7 @@ const Result = () => {
   const [email, setEmail] = useState("");
   const [correct, setCorrect] = useState(null);
   const [item, setItem] = useState([]);
-
+  const [pre_topic,setPre_topic]=useState("")
   const [pre_data,setPre_data]=useState([])
   const [pre_length,setPre_length]=useState(null)
   const[pre_correct,setPre_correct]=useState(null)
@@ -56,7 +63,8 @@ const Result = () => {
       try {
         const response = await axios.get(`http://localhost:2001/user/questions/get/${email}`
         );
-        // console.log("new response is the", response.data)
+        // console.log("new response is the", response.data[response.data.length-2].topic)
+        setPre_topic(response.data[response.data.length-2].topic)
         setPre_data(response?.data)
         setPre_length(response.data[response.data.length-2].questions.length)
         let pre=response?.data[response.data.length-2].questions;
@@ -94,7 +102,7 @@ const Result = () => {
 
       {/* Charts */}
       <div className="mb-8 tex-lg md:text-xl">
-        <div className="flex  flex-col">
+        {/* <div className="flex  flex-col">
           <p className=" font-semibold mb-3">Current Topic : {topic}</p>
           <p className=" font-semibold mb-6">User Id : {email}</p>
           <div className="grid grid-cols-3 gap-4 mb-10 font-medium ">
@@ -102,10 +110,71 @@ const Result = () => {
             <p>Correct Answers: {correct}</p>
             <p>Incorrect Answers: {item?.length - correct}</p>
           </div>
-        </div>
+        </div> */}
+        <div className="grid md:grid-cols-4 gap-4 mb-10">
+      {/* Card 1 */}
+
+      <div className="bg-white shadow-md p-6 md:max-w-[300px] flex flex-col justify-between">
         <div>
-          <Chart item={item}/>
+          <div className="flex items-center justify-center bg-blue-400 rounded-full w-12 h-12 mb-4">
+            <PersonIcon className="text-white" />
+          </div>
+          <p className="text-lg font-semibold">{email}</p>
+          <div className="flex justify-between text-sm">
+            <p>Total Topics</p>
+            <p>10</p>
+          </div>
         </div>
+      </div>
+      {/* Card 2 */}
+      <div className="bg-white shadow-md p-6 md:max-w-[300px] flex flex-col justify-between">
+        <div>
+          <div className="flex items-center justify-center bg-red-400 rounded-full w-12 h-12 mb-4">
+            <QuizIcon className="text-white" />
+          </div>
+          <p className="text-lg font-semibold">{topic}</p>
+          <div className="flex justify-between text-sm">
+            <p>Total Questions:</p>
+            <p>10</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Card 3 */}
+      <div className="bg-white shadow-md p-6 md:max-w-[300px] flex flex-col justify-between">
+        <div>
+          <div className="flex items-center justify-center bg-green-400 rounded-full w-12 h-12 mb-4">
+            <AdsClickIcon className="text-white" />
+          </div>
+          <p className="text-lg font-semibold">Current Topic</p>
+          <div className="flex justify-between text-sm text-gray-500">
+            <p>Correct Answers</p>
+            <p>{correct}</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Card 4 */}
+      <div className="bg-white shadow-md p-6 md:max-w-[300px] flex flex-col justify-between">
+        <div>
+          <div className="flex justify-between">
+            <p className="text-lg font-semibold mb-2">Previous Topic</p>
+            <div className="flex items-center justify-center bg-purple-400 rounded-full w-12 h-12">
+              <VisibilityIcon className="text-white" />
+            </div>
+          </div>
+          <div>
+            <p className="text-lg mb-3">{pre_topic}</p>
+            <div className="flex justify-between text-sm">
+              <p>Correct Answers:</p>
+              <p>{pre_correct}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+       
+
       </div>
 
       {/* Questions */}
@@ -137,21 +206,6 @@ const Result = () => {
               )
             })
           }
-        </div>
-        <div className=" text-xl font-medium mb-3 mt-10 flex">
-          <p>Total Exams : </p>
-          <p> 10</p>
-        </div>
-        <div className=" text-l md:text-xl font-medium mb-3 border rounded-lg shadow-lg p-4">
-          <p className="mt-3">Previous Exam</p>
-          <hr className="border-t-2 border-gray-500" />
-          <p className="mt-3 mb-3">Java Programming :</p>
-
-          <div className="grid grid-cols-3 gap-4 mb-3">
-            <p>Total Questions: {pre_length}</p>
-            <p>Correct Answers: {pre_correct}</p>
-            <p>Incorrect Answers: {pre_length-pre_correct}</p>
-          </div>
         </div>
       </div>
 

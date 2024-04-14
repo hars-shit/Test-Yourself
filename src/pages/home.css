@@ -28,7 +28,10 @@ html{
    font-size: 62.5%;
    overflow-x: hidden;
 }
-
+.main{
+    font-size: 30px;
+    overflow-x: hidden;
+}
 html::-webkit-scrollbar{
    width: 1rem;
    height: .5rem;

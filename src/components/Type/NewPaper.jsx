@@ -11,16 +11,27 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Tooltip from "@mui/material/Tooltip";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-// import { prompt} from "../../redux/promptSlice";
+import axios from "axios";
 import {setPrompts, updateAnswer} from "../../redux/promptSlice"
+import Progress from "../custom/Progress";
 
 const NewPaper = () => {
+  const id=useSelector((state) => state.paperSlice.currentuser.id)
+  // console.log("id",id)
   const data = useSelector((state) => state.paperSlice.currentuser.arr);
-  const [arr, setArr] = useState([]);
+  const updatedArray=useSelector((state)=>state)
+  // console.log("upda",updatedArray)
   const [index, setIndex] = useState(0);
   const [input, setInput] = useState('');
+  
+  // console.log("data index",data[index])
+
+  //current marks
+  const [marks, setMarks] = useState()
+  const [loading,setLoading]=useState(false)
+
   const navigate = useNavigate()
-  console.log("aerr",arr)
+  // console.log("aerr",arr)
   const dispatch=useDispatch()
 
   useEffect(() => {
@@ -32,6 +43,7 @@ const NewPaper = () => {
   useEffect(()=>{
     dispatch(setPrompts(data))
   },[])
+ 
 
   
   const handleTextareaChange = (e) => {
@@ -48,12 +60,34 @@ const NewPaper = () => {
       return item;
     });
     // Dispatch the updated answer to the Redux store
-dispatch(updateAnswer({ index, user_answer: value }));
+    dispatch(updateAnswer({ index, user_answer: value,marks }));
 
   };
   
+  const getMarks=async()=>{
+    let message=`Question : ${updatedArray.promptSlice.prompts[index].question} , answer: ${updatedArray.promptSlice.prompts[index].user_answer}
+    .How much do you rate this answer out of 10 ,in response only give me single number no text ,note : if user write totally wrong answer then give it 0 marks  ,please do hard marking
+    `
+    try{
+      setLoading(true);
+      let reponse=await axios.post("http://localhost:8000/chat",{message})
+    console.log("res answer marks",reponse.data)
+    setMarks(reponse.data)
+    setLoading(false)
+    }
+    catch(error){
+      console.log("Error in axios while getting Marks");
+    }
+  }
 
+  useEffect(()=>{
+    getMarks()
+  },[index])
   const handleNext = () => {
+    // console.log("data of index",updatedArray.promptSlice.prompts[index])
+
+
+
     if(index === data.length-1){
       navigate('/result')
     }
@@ -71,6 +105,8 @@ dispatch(updateAnswer({ index, user_answer: value }));
 
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
+       <Progress open={loading} setOpen={setLoading}/>
+      
       <Card className="w-full md:w-[850px] h-auto md:h-[80vh] bg-white p-4 md:p-8 shadow-lg rounded-lg flex flex-col justify-between">
         <div className="flex justify-between items-center">
           <ChevronLeftIcon style={{ fontSize: "2.5rem" }} />
@@ -112,7 +148,7 @@ dispatch(updateAnswer({ index, user_answer: value }));
         <div className="flex justify-between mt-5 md:mt-8">
           <button
             className="px-4 md:px-6 py-2 md:py-3 bg-slate-400 text-black  rounded-lg disabled:opacity-50 "
-            onClick={handleBack}
+            // onClick={handleBack}
           >
             <ChevronLeftIcon style={{ fontSize: "2rem" }} /> Back
           </button>
@@ -126,6 +162,7 @@ dispatch(updateAnswer({ index, user_answer: value }));
           </button>
         </div>
       </Card>
+         
     </div>
   );
 };

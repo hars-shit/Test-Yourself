@@ -35,9 +35,10 @@ const promptSlice = createSlice({
         },
         // Updates the answer for a single question
         updateAnswer: (state, action) => {
-            const { index, user_answer } = action.payload;
+            const { index, user_answer, marks } = action.payload;
             if (state.prompts[index]) {
                 state.prompts[index].user_answer = user_answer;
+                state.prompts[index].marks = marks;
             }
         }
     }

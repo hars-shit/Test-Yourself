@@ -1,4 +1,4 @@
-// import './main.css'
+
 import SearchIcon from '@mui/icons-material/Search';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HomeIcon from '@mui/icons-material/Home';
@@ -10,7 +10,10 @@ import logo from '../assets/logo.png'
 import PersonIcon from '@mui/icons-material/Person';
 import BasicChips from '../components/custom/Chips';
 import Calender from '../components/custom/Calender';
+// import './home.css'
+
 const Home = () => {
+ 
   return (
    <>
     
