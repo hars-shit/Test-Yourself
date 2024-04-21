@@ -190,7 +190,9 @@ const Friend = () => {
         }
         {prompt.arr && (
           <div className="flex justify-center">
+            {/* sx */}
             <button
+
               onClick={handlePrompt}
               disabled={prompt.arr.length !== 10}
               className={`py-2 px-4 bg-green-700 text-white rounded-lg w-1/2 ${prompt.arr.length !== 10 && 'opacity-70 cursor-not-allowed'}`}
