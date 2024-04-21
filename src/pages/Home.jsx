@@ -10,9 +10,15 @@ import logo from '../assets/logo.png'
 import PersonIcon from '@mui/icons-material/Person';
 import BasicChips from '../components/custom/Chips';
 import Calender from '../components/custom/Calender';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 // import './home.css'
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Home = () => {
+   const user=useSelector((state)=>state.loggedSlice.currentUser);
+   console.log('User',user)
+   const navigate=useNavigate()
  
   return (
    <>
@@ -29,8 +35,9 @@ const Home = () => {
       </form>
 
       <div className="icons" style={{display:'flex'}}>
+         <div id="toggle-btn" className="fas fa-sun" onClick={()=>navigate('/notification')}><NotificationsActiveIcon sx={{fontSize:'24px'}}/></div>
          <div id="user-btn" className="fas fa-user"><PersonIcon sx={{fontSize:'26px'}}/></div>
-         <div id="toggle-btn" className="fas fa-sun"><SettingsIcon sx={{fontSize:'22px'}}/></div>
+         <div id="toggle-btn" className="fas fa-sun" ><SettingsIcon sx={{fontSize:'22px'}}/></div>
       </div>
 
       <div className="profile">
@@ -56,7 +63,7 @@ const Home = () => {
 
    <div className="profile">
       <img src={logo} className="image" alt="" style={{width:'100%'}}/>
-      <h3 className="name">Harshit Upadhyay</h3>
+      <h3 className="name">{user.username}</h3>
       <a href="profile.html" className="btn">view profile</a>
    </div>
 

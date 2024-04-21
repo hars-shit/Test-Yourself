@@ -4,6 +4,8 @@ import { configureStore,combineReducers } from '@reduxjs/toolkit'
 import storage from 'redux-persist/lib/storage';
 import promptSlice from './promptSlice';
 import userSlice from './userSlice';
+import clusterSlice from './clusterSlice';
+import loggedSlice from './loggedSlice';
 
 
 const persistConfig={
@@ -11,11 +13,12 @@ const persistConfig={
     storage
 }
 
-
 const rootReducer=combineReducers({
     paperSlice:paperSlice,
     promptSlice:promptSlice,
-    userSlice:userSlice
+    userSlice:userSlice,
+    clusterSlice:clusterSlice,
+    loggedSlice:loggedSlice
 })
 
 const persistedReducer=persistReducer(persistConfig,rootReducer)

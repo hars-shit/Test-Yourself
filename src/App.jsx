@@ -13,6 +13,11 @@ import Profile from "./pages/User/Profile"
 import Home from "./pages/Home"
 import Friend from "./components/Friend/Friend"
 import Subscription from "./pages/Subscription/Subscription"
+import Collab from "./components/Friend/Collab"
+import Notification from "./components/Notification/Notification"
+import CollabPaper from "./components/Notification/CollabPaper"
+import Data from "./components/Friend/Data"
+import Ranking from "./components/Ranking/Ranking"
 
 const App = () => {
   return (
@@ -26,10 +31,17 @@ const App = () => {
     <Route path="/home" element={<Home />}/>
     
       {/* for interview  */}
+      <Route path="/data" element={<Data />}/>
 
-      <Route path="/lobby" element={<Lobby/>}/>
+      <Route path="/lobby/:id" element={<Lobby/>}/>
       <Route path="/room/:roomId" element={<Room/>}/>
       <Route path="/friend" element={<Friend />}/>
+      <Route path="/room/exam" element={<Collab />}/>
+      <Route path="/room/exam/collab/:id" element={<CollabPaper />} />
+
+      {/* for notification  */}
+
+      <Route path="/notification" element={<Notification />}/>
 
       {/* subscription  */}
       <Route path="/pay" element={<Subscription />}/>
@@ -40,6 +52,10 @@ const App = () => {
       <Route path="/newPaper" element={<NewPaper />}/>
       <Route path="/prompt" element={<Prompt />}/>
       <Route path="/result" element={<TypeResult />} />
+
+      {/* ranking  */}
+
+      <Route path="/rank" element={<Ranking />}/>
     </Routes>
     </>
   )

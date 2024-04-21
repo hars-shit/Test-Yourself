@@ -2,13 +2,13 @@ import { useState } from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addPaper } from "../redux/paperSlice";
 import { Alert, Backdrop, Snackbar } from "@mui/material";
 
 const Test = () => {
   const [topic, setTopic] = useState("");
-  const [email,setEmail]=useState("");
+  // const [email,setEmail]=useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [prompt, setPrompt] = useState({
@@ -18,21 +18,15 @@ const Test = () => {
   const navigate = useNavigate();
   const dispatch=useDispatch()
 
-  // useEffect(() => {
-  //   if (prompt.id) {
-  //     // dispatch(addPaper(prompt));
-  //     navigate('/paper');
-  //   }
-  // }, [prompt.id, dispatch, navigate, prompt]);
-
+  const user=useSelector((state)=>state.loggedSlice.currentUser);
   const handlePrompt = () => {
     const sendData = async () => {
       try {
         let response = await axios.post('http://localhost:2001/user/questions', {
-          email: email,
+          email: user.email,
           topic: topic
         });
-        console.log("res id ", response.data._id);
+        console.log("res id ", response.data);
 
         dispatch(addPaper({...prompt, id: response.data._id}))
         response.data._id && navigate('/paper')
@@ -114,10 +108,10 @@ const Test = () => {
             <p className="text-lg text-gray-500 dark:text-gray-400">Practice your target and achieve your dream</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <div className="space-y-2 order-first">
+            {/* <div className="space-y-2 order-first">
               <label htmlFor="email" className="text-lg">Email</label>
               <input id="email" className="w-full py-2 px-4 border rounded-lg" type="email" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="Enter Your email"/>
-            </div>
+            </div> */}
             <div className="space-y-2  md:order-none">
               <label htmlFor="topic" className="text-lg">Enter your Topic</label>
               <input id="topic" className="w-full py-2 px-4 border rounded-lg" type="text" value={topic} placeholder="Enter the topic..." onChange={(e) => setTopic(e.target.value)}/>

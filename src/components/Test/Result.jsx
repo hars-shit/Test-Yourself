@@ -14,6 +14,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 
 
 const Result = () => {
+  const user=useSelector((state)=>state.loggedSlice.currentUser);
   const navigate = useNavigate()
   const id = useSelector((state) => state.paperSlice.currentuser.id);
   const [topic, setTopic] = useState("");
@@ -35,7 +36,7 @@ const Result = () => {
         let response = await axios.get(
           `http://localhost:2001/user/${id}`
         );
-        // console.log("response is ", response)
+        console.log("response is ", response)
         let correct = 0;
         for (let i = 0; i < response?.data?.questions.length; i++) {
           if (response?.data?.questions[i].is_correct === 1) {
@@ -63,7 +64,7 @@ const Result = () => {
       try {
         const response = await axios.get(`http://localhost:2001/user/questions/get/${email}`
         );
-        // console.log("new response is the", response.data[response.data.length-2].topic)
+        console.log("new response is the", response)
         setPre_topic(response.data[response.data.length-2].topic)
         setPre_data(response?.data)
         setPre_length(response.data[response.data.length-2].questions.length)
