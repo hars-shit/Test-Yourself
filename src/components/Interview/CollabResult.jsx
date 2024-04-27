@@ -1,5 +1,4 @@
 import { Chip } from "@mui/material";
-import BasicTable from "./BasicTable";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -8,11 +7,12 @@ import QuizIcon from '@mui/icons-material/Quiz';
 import PersonIcon from '@mui/icons-material/Person';
 import AdsClickIcon from '@mui/icons-material/AdsClick';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import BasicTable from "../Test/BasicTable";
 // import ChartBar from "./ChartBar";
 // import Chart2 from "./Chart2";
 
 
-const Result = () => {
+const CollabResult= () => {
   const user=useSelector((state)=>state.loggedSlice.currentUser);
   const navigate = useNavigate()
   const id = useSelector((state) => state.paperSlice.currentuser.id);
@@ -217,4 +217,4 @@ const Result = () => {
   );
 };
 
-export default Result;
+export default CollabResult;

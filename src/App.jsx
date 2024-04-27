@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom"
+import { Route, Routes,  useNavigate } from "react-router-dom"
 import Test from "./pages/Test"
 import Lobby from "./components/Interview/Lobby"
 import Room from "./components/Interview/Room"
@@ -18,20 +18,35 @@ import Notification from "./components/Notification/Notification"
 import CollabPaper from "./components/Notification/CollabPaper"
 import Data from "./components/Friend/Data"
 import Ranking from "./components/Ranking/Ranking"
+import { useSelector } from "react-redux"
+import { useEffect } from "react"
+import Exam from "./components/Exam/Exam"
+import CollabResult from "./components/Interview/CollabResult"
+
 
 const App = () => {
+  const navigate=useNavigate()
+  const user=useSelector((state)=>state.loggedSlice.currentUser);
+  useEffect(()=>{
+
+    if(!user){
+      navigate('/')
+    }
+  },[navigate, user])
+  console.log("user ",user);
+  // localStorage.clear()
   return (
     <>
     <Routes>
 
       {/* for mcq test  */}
-      <Route path="/" element={<Login />}/>
+      <Route path="/" element={user ? <Home /> : <Login />}/>
+    <Route path="/login" element={<Login/>}/>
       <Route path="/register" element={<Signup />}/>
     <Route path="/profile" element={<Profile />}/>
-    <Route path="/home" element={<Home />}/>
     
       {/* for interview  */}
-      <Route path="/data" element={<Data />}/>
+      <Route path="/notification" element={<Data />}/>
 
       <Route path="/lobby/:id" element={<Lobby/>}/>
       <Route path="/room/:roomId" element={<Room/>}/>
@@ -39,9 +54,11 @@ const App = () => {
       <Route path="/room/exam" element={<Collab />}/>
       <Route path="/room/exam/collab/:id" element={<CollabPaper />} />
 
+      <Route path="/collab/result" element={<CollabResult />}/>
+
       {/* for notification  */}
 
-      <Route path="/notification" element={<Notification />}/>
+      {/* <Route path="/notification" element={<Notification />}/> */}
 
       {/* subscription  */}
       <Route path="/pay" element={<Subscription />}/>
@@ -56,6 +73,10 @@ const App = () => {
       {/* ranking  */}
 
       <Route path="/rank" element={<Ranking />}/>
+
+      {/* full exam paper  */}
+
+      <Route  path="/exam" element={<Exam />}/>
     </Routes>
     </>
   )

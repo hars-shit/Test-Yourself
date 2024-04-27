@@ -18,6 +18,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
 import a from '../../assets/logo.png'
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 
 const StyledFab = styled(Fab)({
@@ -31,7 +32,8 @@ const StyledFab = styled(Fab)({
 
 export default function Data() {
     const [isRotated, setIsRotated] = React.useState(false);
-  const [id,setid]=React.useState('ankita@gmail.com')
+    const user=useSelector((state)=>state.loggedSlice.currentUser);
+  const [id,setid]=React.useState(user.email)
   const [data,setData]=React.useState([])
   const navigate=useNavigate()
 
@@ -41,7 +43,7 @@ export default function Data() {
     React.useEffect(() => {
         const getNotification = async () => {
           try {
-            let response = await axios.get('http://localhost:2001/user/collab/notification?collaborator=ankita@gmail.com');
+            let response = await axios.get(`http://localhost:2001/user/collab/notification?collaborator=${user.email}`);
             setData(response.data)
             console.log("response", response);
           } catch (error) {

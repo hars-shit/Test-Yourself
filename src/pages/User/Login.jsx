@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import logo from '../../assets/logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Alert from '@mui/material/Alert';
 import { useDispatch } from 'react-redux';
@@ -9,6 +9,7 @@ import { log } from '../../redux/loggedSlice';
 
 const Login = () => {
   const dispatch=useDispatch()
+  const navigate=useNavigate()
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
@@ -35,6 +36,7 @@ const Login = () => {
       );
       console.log('login:', LoginResponse);
       if (LoginResponse.status === 200) {
+        navigate("/");
         dispatch(log(LoginResponse.data))
         setAlertMessage('Successfully logged in');
         setAlertSeverity('success');

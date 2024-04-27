@@ -10,7 +10,7 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 const Room = () => {
   const num=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
-  const [activeIndex, setActiveIndex] = useState(0); // State variable to keep track of the active number's index
+  const [activeIndex, setActiveIndex] = useState(0); 
 
   const handleNumberClick = (index) => {
     setActiveIndex(index); 
@@ -21,10 +21,11 @@ const Room = () => {
   const [remoteStream, setRemoteStream] = useState();
   const id=useSelector((state)=>state.clusterSlice.currentId);
   const [data, setData] = useState([])
-  const [email,setEmail]=useState("ankita@gmail.com")
+  const user=useSelector((state)=>state.loggedSlice.currentUser);
+  const [email,setEmail]=useState(user.email)
 
   const [index, setIndex] = useState(0);
-  const [timerDuration, setTimerDuration] = useState(10);
+  const [timerDuration, setTimerDuration] = useState(1000);
   const [optionIndex,SetOptionIndex]=useState(null)
   const [selectedOptionIndex, setSelectedOptionIndex] = useState(null);
   const navigate=useNavigate();
@@ -105,7 +106,7 @@ const Room = () => {
           
           setSelectedOptionIndex(null); 
           setData()
-          return 10;
+          return 100;
         } else {
           return prevDuration - 1;
         }
@@ -113,7 +114,7 @@ const Room = () => {
     }, 1000); 
 
     return () => clearInterval(timer); 
-  }, [data, email, id, index, navigate, optionIndex, selectedOptionIndex]);
+  }, [collaboratorEmail, data, email, id, index, navigate, optionIndex, selectedOptionIndex]);
 
 
   const handleOptionChange = (e,optionIndex) => {
