@@ -54,7 +54,7 @@ const App = () => {
       <Route path="/room/exam" element={<Collab />}/>
       <Route path="/room/exam/collab/:id" element={<CollabPaper />} />
 
-      <Route path="/collab/result" element={<CollabResult />}/>
+      <Route path="/collab/result/:id" element={<CollabResult />}/>
 
       {/* for notification  */}
 

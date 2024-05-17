@@ -112,7 +112,7 @@ const Home = () => {
             <img src="" className="image" alt="" />
             <h3 className="name">shaikh anas</h3>
             <p className="role">studen</p>
-            <a href="profile.html" className="btn">
+            <a  className="btn">
               view profile
             </a>
             <div className="flex-btn">
@@ -135,7 +135,7 @@ const Home = () => {
         <div className="profile">
           <img src={logo} className="image" alt="" style={{ width: "100%" }} />
           <h3 className="name">{user.username}</h3>
-          <a href="profile.html" className="btn">
+          <a  className="btn">
             view profile
           </a>
         </div>
