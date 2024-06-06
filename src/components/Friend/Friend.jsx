@@ -167,6 +167,14 @@ const Friend = () => {
               <label htmlFor="topic" className="text-lg">Enter your Topic</label>
               <input id="topic" className="w-full py-2 px-4 border rounded-lg" type="text" value={topic} placeholder="Enter the topic..." onChange={(e) => setTopic(e.target.value)}/>
             </div>
+            <div className="space-y-2  md:order-none ">
+              <label htmlFor="topic" className="text-lg">Enter your Category</label>
+              <select name="" id="" className="w-full py-2 px-4 border rounded-lg">
+                <option value="">Easy</option>
+                <option value="">Medium</option>
+                <option value="">Hard</option>
+              </select>
+            </div>
             <div className="space-y-2  md:order-none">
               <label htmlFor="room" className="text-lg">Create your Room Id</label>
               <input id="room" className="w-full py-2 px-4 border rounded-lg" type="text" value={room} placeholder="Enter the Room Id..." onChange={(e) => setRoom(e.target.value)}/>

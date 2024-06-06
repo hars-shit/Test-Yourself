@@ -23,7 +23,7 @@ const Room = () => {
   const [email, setEmail] = useState(user.email);
   console.log("uda of",id)
   const [index, setIndex] = useState(0);
-  const [timerDuration, setTimerDuration] = useState(10);
+  const [timerDuration, setTimerDuration] = useState(50);
   const [optionIndex, SetOptionIndex] = useState(null);
   const [selectedOptionIndex, setSelectedOptionIndex] = useState(null);
   const navigate = useNavigate();
@@ -103,7 +103,7 @@ const Room = () => {
 
           setSelectedOptionIndex(null);
           setData();
-          return 10;
+          return 50;
         } else {
           return prevDuration - 1;
         }
@@ -228,7 +228,7 @@ const Room = () => {
     <div className="flex flex-col lg:flex-row lg:space-x-8 max-w-8xl mx-auto p-8">
       <div className="flex-1 space-y-6 mb-6">
         <div className="space-y-2">
-          <h2 className="text-4xl font-bold">Basic Quiz</h2>
+          <h2 className="text-4xl font-bold">AutoProb</h2>
           <p className="text-lg">
             Please select the correct answer for each question
           </p>
@@ -246,7 +246,7 @@ const Room = () => {
                 </p>
                 <form className="space-y-4 w-full">
                   {data[index]?.option.map((option, optionIndex) => (
-                    <div key={optionIndex} className="flex items-center space-x-2">
+                    <div key={optionIndex} className="flex items-center space-x-2 ">
                       <input
                         type="radio"
                         id={`option-${optionIndex}`}
@@ -257,7 +257,7 @@ const Room = () => {
                       />
                       <label
                         for={`option-${optionIndex}`}
-                        className="text-xs md:text-sm"
+                        className="text-sm md:text-lg"
                       >
                         {option}
                       </label>
@@ -268,14 +268,14 @@ const Room = () => {
             )}
           </div>
         </div>
-        <div className="flex justify-between">
+        {/* <div className="flex justify-between">
           <button className="bg-green-500 text-white px-6 py-3 rounded-lg">
             Back
           </button>
           <button className="bg-purple-500 text-white px-6 py-3 rounded-lg">
             Next
           </button>
-        </div>
+        </div> */}
       </div>
       <div className="flex-1 space-y-4 border border-gray-200">
         <div className=" rounded-md p-4 ">
@@ -333,7 +333,7 @@ const Room = () => {
                 
                 <ReactPlayer
                   playing
-                  muted
+                 muted
                   height="250px"
                   width="450px"
                   

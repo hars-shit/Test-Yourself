@@ -179,9 +179,9 @@ const Home = () => {
                 marginBottom: "5px",
               }}
             />
-            <span>Subscriptions</span>
+            <span>Top Performance</span>
           </a>
-          <a href="/contact-us">
+          {/* <a href="/contact-us">
             <ForwardToInboxIcon
               sx={{
                 fontSize: "22px",
@@ -191,7 +191,7 @@ const Home = () => {
               }}
             />
             <span>Contact Us</span>
-          </a>
+          </a> */}
         </nav>
       </div>
 
@@ -204,15 +204,15 @@ const Home = () => {
             <p className="likes">
               total Paper : <span>{totalMcq}</span>
             </p>
-            <a href="#" className="inline-btn">
-              view Details
-            </a>
             <p className="likes">
               total Questions : <span>{totalMcq * 10}</span>
             </p>
-            <a href="#" className="inline-btn">
-              view comments
+            <a  className="inline-btn" >
+               Details
             </a>
+            {/* <a href="#" className="inline-btn">
+              view comments
+            </a> */}
             <p className="likes" style={{ marginBottom: "1rem" }}>
               Favorite Topics :{" "}
             </p>
@@ -254,15 +254,15 @@ const Home = () => {
             <p className="likes">
               total Paper : <span>25</span>
             </p>
-            <a href="#" className="inline-btn">
-              view Details
-            </a>
             <p className="likes">
               total Questions : <span>12</span>
             </p>
-            <a href="#" className="inline-btn">
-              view comments
+            <a  className="inline-btn">
+               Details
             </a>
+            {/* <a href="#" className="inline-btn">
+              view comments
+            </a> */}
             <p className="likes" style={{ marginBottom: "1rem" }}>
               Favorite Topics :{" "}
             </p>

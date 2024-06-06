@@ -84,6 +84,7 @@ const Test = () => {
         },
       };
       const response = await axios.post("http://localhost:8000/chat", { message }, options);
+      console.log("res",response.data)
       setPrompt({ arr: response.data, id: '' });
       setOpen(true);
     } catch (err) {
@@ -138,7 +139,7 @@ const Test = () => {
             <button
               onClick={handlePrompt}
               disabled={prompt.arr.length !== 10}
-              className={`py-2 px-4 bg-green-700 text-white rounded-lg w-1/2 ${prompt.arr.length !== 10 && 'opacity-70 cursor-not-allowed'}`}
+             style={{background:'#8e44ad'}} className={`py-2 px-4  text-white rounded-lg w-1/2 ${prompt.arr.length !== 10 && 'opacity-70 cursor-not-allowed'}`}
             >
               Start Your Exam
             </button>
